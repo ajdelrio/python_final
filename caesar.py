@@ -4,8 +4,11 @@ def encrypt():
     plain_text = input("\nEnter the text to encrypt:\n")
     while True:
         try:
-            shift = int(input("\nEnter the shift value to use: "))
-            break
+            shift = int(input("\nEnter a shift value between -26 and 26: "))
+            if shift not in range(-26, 27):
+                continue
+            else:
+                break
         except ValueError:
             print("Enter an integer.")
 
@@ -17,7 +20,7 @@ def encrypt():
         for i in range(len(word)):
             if word[i].isalpha() is False:
                 continue
-            if ord(word[i]) + shift in range(65, 90):
+            if ord(word[i]) + shift in range(65, 91):
                 new_word += chr(ord(word[i]) + shift)
             elif ord(word[i]) + shift > 90:
                 new_word += chr(ord(word[i]) + shift - 26)
@@ -32,12 +35,12 @@ def encrypt():
         if inp not in ["y", "Y", "n", "N"]:
             print("Invalid input.")
             continue
-        if inp == "y" or "Y":
+        if inp == "y" or inp == "Y":
             f = open("caesarEncrypt.txt", "w+")
             f.write(cipher_text)
             f.close()
             break
-        if inp == "n" or "N":
+        if inp == "n" or inp == "N":
             break
 
 
@@ -59,7 +62,7 @@ def decrypt():
         for i in range(len(word)):
             if word[i].isalpha() is False:
                 continue
-            if ord(word[i]) - shift in range(65, 90):
+            if ord(word[i]) - shift in range(65, 91):
                 new_word += chr(ord(word[i]) - shift)
             elif ord(word[i]) - shift < 65:
                 new_word += chr(ord(word[i]) - shift + 26)
@@ -74,11 +77,10 @@ def decrypt():
         if inp not in ["y", "Y", "n", "N"]:
             print("Invalid input.")
             continue
-        if inp == "y" or "Y":
+        if inp == "y" or inp == "Y":
             f = open("caesarDecrypt.txt", "w+")
             f.write(plain_text)
             f.close()
             break
-        if inp == "n" or "N":
+        if inp == "n" or inp == "N":
             break
-            
