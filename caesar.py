@@ -38,11 +38,58 @@ def shiftWord(word, shift):
     return new_word
 
 
+def fileInp():
+    text = ""
+    while True:
+        filename = input("Enter the path to the .txt file you wish to use, or "
+                         "c to cancel:\n")
+        if filename not in ["c", "C"]:
+            while filename[-4:] != ".txt":
+                filename = input("File must end in .txt, enter the path to a"
+                                 ".txt file, or c to cancel:\n")
+                continue
+            try:
+                f = open(filename, "r")
+            except FileNotFoundError:
+                print("Wrong file or file path.")
+            else:
+                text = f.read()
+                break
+        else:
+            return
+    f.close()
+    return text
+
+
+def askFile():
+    while True:
+        choice = input(
+            "Would you like to enter the text manually(1) or from a .txt "
+            "file(2)?\n")
+        if choice == "1":
+            text = input("\nEnter your text:\n")
+            break
+        elif choice == "2":
+            text = fileInp()
+            if text is None or text == "":
+                continue
+            else:
+                break
+        else:
+            continue
+    return text
+
+
 def encrypt():
-    plain_text = input("\nEnter the text to encrypt:\n")
+    while True:
+        text = askFile()
+        if text is None or text == "":
+            continue
+        else:
+            break
     shift = getShift()
-    enc_text = shiftText(plain_text, shift)
-    print("\n" + enc_text)
+    enc_text = shiftText(text, shift)
+    print("\nHere is your encrypted text:\n\n" + enc_text)
     while True:
         inp = input("\nWould you like to save to file? (y/n)\n")
         if inp not in ["y", "Y", "n", "N"]:
@@ -58,20 +105,25 @@ def encrypt():
 
 
 def decrypt():
-    text = input("\nEnter the text to decrypt:\n")
     while True:
-        choice = input("Do you know the shift value?(y/n)")
+        text = askFile()
+        if text is None:
+            continue
+        else:
+            break
+    while True:
+        choice = input("Do you know the shift value?(y/n)\n")
         if choice in ["Y", "y"]:
             shift = getShift()
             break
         elif choice in ["N", "n"]:
             shift = guessShift(text)
-            print("I guess the shift value is: " + shift)
+            print("I guess the shift value is: ", shift)
             break
         else:
             continue
-    dec_text = shiftText(text, shift)
-    print("\n" + dec_text)
+    dec_text = shiftText(text, -shift)
+    print("\nHere is your decrypted text:\n\n" + dec_text)
     while True:
         inp = input("\nWould you like to save to file? (y/n)\n")
         if inp not in ["y", "Y", "n", "N"]:
@@ -101,6 +153,7 @@ def wordGoodness(word, shift):
         0.0633, 0.0906, 0.0276, 0.0098, 0.0236, 0.0015, 0.0197, 0.0007
         ]
     shift_goodness = 0.0
+    word = word.upper()
     new_word = shiftWord(word, -shift)
     for i in range(len(new_word)):
         position = ord(new_word[i]) - 65
