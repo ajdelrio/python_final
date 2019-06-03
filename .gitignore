@@ -1,7 +1,5 @@
 __pycache__
 .DS_Store
-caesarEncrypted.txt
-casesarDecrypted.txt
-test.txt
+*.txt
 *.pyc
 .vscode/*
