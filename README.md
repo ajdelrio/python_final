@@ -6,12 +6,14 @@ It will decrypt a Caesar cipher with a given shift value or guess the shift valu
 It will also decrypt one-time pad encrypted text, however, only with the correct key.  This is due to the way the one-time pad encryption works, explained in brief below, making it hypothetically immune to brute-force attacks.
 
 ## Using
-The user will be prompted with a choice of ciphers, between Caesar and One-Time Pad, and then between 
+The user will be prompted with a choice of ciphers, between Caesar and One-Time Pad, and then between encrypting or decrypting.  Once the user is done with encrypting or decrypting, the user will be allowed to continue encrypting or decrypting text with a cipher of their choice.
 
 ### Caesar
 A Caesar cipher is also known as a shift cipher, it shifts all positions in the alphabet of a text by a given amount.  This is a simple cipher and is not recommended for any real use.  This is demonstrated by the simple brute force method included to try to guess the cipher and decode the text without being given it, discussed more below.
 
 The user will be prompted to either encrypt or decrypt text, once the option is chosen the user is prompted to enter the text manually or from a local .txt file, after which the user is prompted to enter the shift value they desire to use (when encrypting), or the shift value that was used to encrypt (when decrypting).
+
+After encrypting or decrypting, the user is offered to save the files locally.
 
 #### Shift value unknown
 If the shift value is not known, the program will attempt to guess what the value is.  It accomplishes this by iterating through each possible shift value, during which it calculates and accumulates the "goodness"  of each word, then compares the "goodness" of each shift value, choosing the "best" guess.

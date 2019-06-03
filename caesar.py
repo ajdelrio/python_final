@@ -104,6 +104,7 @@ def encrypt():
             print("Invalid input.")
             continue
         if inp in ["y", "Y"]:
+            print("Writing encrypted text to caesarEncrypted.txt...")
             f = open("caesarEncrypted.txt", "w+")
             f.write(enc_text)
             f.close()
@@ -136,6 +137,7 @@ def decrypt():
             print("Invalid input.")
             continue
         if inp in ["y", "Y"]:
+            print("Writing decrypted text to caesarDecrypted.txt...")
             f = open("caesarDecrypted.txt", "w+")
             f.write(dec_text)
             f.close()
